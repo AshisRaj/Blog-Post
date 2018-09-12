@@ -1,13 +1,15 @@
 # Blog-Post
 
 This is my 1st Node.js application. It has following functionalities.
-1. User Registration
-2. Login/Logout
-3. Forgot Password (email support)
-4. Reset Password (email support)
-5. View and Edit Profile
-6. Add and View Blog/Post
-7. Add and View Comment on a Blog/Post
+1. [User Registration](public/images/screenshots/register.JPG)
+2. [Login/Logout](public/images/screenshots/login.JPG)
+3. [Forgot Password](public/images/screenshots/forgot.JPG) (email support) 
+4. [Reset Password](public/images/screenshots/reset.JPG) (email support)
+5. [View and Edit Profile](public/images/screenshots/profile.JPG)
+6. [Add Blog/Post](public/images/screenshots/add_post.JPG)
+7. [View Blog/Post](public/images/screenshots/dashboard.JPG)
+8. [Add Comment on a Blog/Post](public/images/screenshots/post_details.JPG)
+9. [View Comment on a Blog/Post](public/images/screenshots/comment.JPG)
 
 ## Installation Prerequisites
 1. Insatll Node.js [See this](https://www.guru99.com/download-install-node-js.html) for installation steps.
@@ -31,6 +33,4 @@ The application sends mail for `Successful Registration`, `Forgot Password` and 
 1. Usual Mode start (code changes do not reflect on the fly) `node app.js`
 2. Development Mode Start (code changes reflect on the fly) `SET DEBUG=Blog-Post:* & npm run devstart`
 3. Open the application in any browser with http://localhost:8080/
-
-    
 
