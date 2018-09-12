@@ -1,0 +1,45 @@
+<div class="col-sm-6 col-sm-offset-3">
+    <div class="panel panel-default">
+        <div class="panel-heading">Sign Up</div>
+        <div class="panel-body">
+            <form id="register-form" action="/register" method="post" role="form">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Username..." required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                        <input type="text" class="form-control" name="email" id="email" placeholder="Email..." title="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password..." autocomplete="off" title="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                    </div>
+                    <span id="helpBlock" class="help-block">Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</span>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-resize-vertical"></span></span>
+                        <input type="password" class="form-control" name="confirm" id="confirm" placeholder="Confirm Password..." autocomplete="off" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                    </div>
+                    <span id="helpBlock" class="help-block">Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</span>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <input type="submit" name="register" id="register" tabindex="6" class="form-control btn btn-register" value="Register Now">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="panel-footer">
+            <a href="/login">Or Sign In</a>
+        </div>
+    </div>
+</div>

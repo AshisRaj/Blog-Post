@@ -1,0 +1,96 @@
+
+<div class="row">
+    <div class="col-md-3 ">
+        <div class="list-group">
+            <a href="/" class="list-group-item list-group-item-action">Dashboard</a>
+            <a href="/post" class="list-group-item list-group-item-action">Add New Post</a>
+            <a href="/profile" class="list-group-item list-group-item-action active">My Profile</a>
+            <a href="/logout" class="list-group-item list-group-item-action">Logout</a>
+        </div> 
+		</div>
+		<div class="col-md-9">
+		    <div class="card">
+		        <div class="card-body">
+		            <div class="row">
+		                <div class="col-md-12">
+		                    <h4>Your Profile</h4>
+		                    <hr>
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col-md-12">
+		                    <form id="profile-form" action="/profile" method="post" role="form">
+                            <div class="form-group row">
+                                <label for="username" class="col-3 col-form-label">User Name</label> 
+                                <div class="col-9">
+                                      <input id="username" name="username" class="form-control here" type="text" value="{{user.username}}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email" class="col-3 col-form-label">Email</label> 
+                                <div class="col-9">
+                                      <input type="text" class="form-control" name="email" id="email" title="Email" value="{{user.email}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="firstname" class="col-3 col-form-label">First Name</label> 
+                                <div class="col-9">
+                                    <input id="firstname" name="firstname" class="form-control here" type="text" value="{{user.profile.firstname}}">
+                                </div>  
+                            </div>
+                            <div class="form-group row">
+                                <label for="lastname" class="col-3 col-form-label">Last Name</label> 
+                                <div class="col-9">
+                                    <input id="lastname" name="lastname" class="form-control here" type="text" value="{{user.profile.lastname}}">
+                                </div>  
+                            </div>
+                            <div class="form-group row">
+                                <label for="age" class="col-3 col-form-label">Age</label> 
+                                <div class="col-9">
+                                    <input id="age" name="age" class="form-control here" type="number" pattern="\d*" min="10" max="70" maxlength="2" value="{{user.profile.age}}" onKeyDown="if(this.value.length==2 && event.keyCode!=8) return false;" >
+                                </div>  
+                            </div>
+                            <div class="form-group row">
+                                <label for="gender" class="col-3 col-form-label">Gender</label> 
+                                <div class="col-9">
+                                    <div id="radioBtn" class="btn-group">
+                                        {{#if user.hasGenderMale}}
+                                          <a class="btn btn-primary btn-sm" data-toggle="gender" data-title="M">Male</a>
+                                        {{else}}
+                                          <a class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="M">Male</a> 
+                                        {{/if}}
+
+                                        {{#if user.hasGenderFemale}}
+                                          <a class="btn btn-primary btn-sm" data-toggle="gender" data-title="F">Female</a>
+                                        {{else}}
+                                          <a class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="F">Female</a>
+                                        {{/if}}
+                                    </div>
+                                    <input type="hidden" name="gender" id="gender" value="{{user.profile.gender}}">
+                                </div>  
+                            </div>
+                            <div class="form-group row">
+                                <label for="address" class="col-3 col-form-label">Address</label> 
+                                <div class="col-9">
+                                    <input id="address" name="address" class="form-control here" type="text" value="{{user.profile.address}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="website" class="col-3 col-form-label">Website</label> 
+                                <div class="col-9">
+                                    <input id="website" name="website" placeholder="e.g. https://example.com" pattern="https://.*" size="20" class="form-control here" type="url" value="{{user.profile.website}}">
+                                </div>
+                            </div>
+                              <div class="form-group row">
+                                <div class="col-md-12 text-center">
+                                  <button name="submit" type="submit" class="btn btn-primary">Update profile</button>
+                                </div>
+                              </div>
+                            </form>
+		                </div>
+		            </div>
+		            
+		        </div>
+		    </div>
+		</div>
+	</div>

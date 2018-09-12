@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="well">
+        <div class="media">
+  		      <div class="media-body">
+    		        <h4 class="media-heading">{{post.title}}</h4>
+                <p class="text-right">By {{post.author}}</p>
+                <p>{{post.body}}</p>
+                <ul class="list-inline list-unstyled">
+  			            <li><span><i class="glyphicon glyphicon-calendar"></i>&nbsp;{{post.publishedSince}}</span></li>
+                    <li>|</li>
+                    <span><i class="glyphicon glyphicon-comment"></i> {{post.comments.length}} comments</span>
+                    <li>|</li>
+                    <li><a href="/"><i class="glyphicon glyphicon-home"></i></a></li>
+			          </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="well well-sm">
+                <form id="comment-form" class="form-horizontal" action="/post/comments" method="post">
+                    <fieldset>
+                        <legend class="text-center">Comment</legend>
+                        <!-- Name input-->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="name">Name</label>
+                            <div class="col-md-9">
+                                <input id="name" name="name" type="text" placeholder="Your name" class="form-control">
+                            </div>
+                        </div>
+                        <!-- Email input-->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="email">*E-mail</label>
+                            <div class="col-md-9">
+                                <input id="email" name="email" type="text" placeholder="Your email" class="form-control" value="{{user.email}}">
+                            </div>
+                        </div>
+                        <!-- Message body -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="message">*Message</label>
+                            <div class="col-md-9">
+                                <textarea class="form-control" id="message" name="message" placeholder="Please enter your message here..." rows="5"></textarea>
+                                <input type="hidden" name="postId" id="postId" value="{{post.id}}">
+                            </div>
+                        </div>
+                        <!-- Form actions -->
+                        <div class="form-group">              
+                            <div class="col-md-12 text-center">
+                                <input type="submit" name="post" id="post" tabindex="4" class="btn btn-primary" value="Add Comment">
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>  

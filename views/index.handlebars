@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="list-group ">
+            <a href="/" class="list-group-item list-group-item-action active">Dashboard</a>
+            <a href="/post" class="list-group-item list-group-item-action">Add New Post</a>
+            <a href="/profile" class="list-group-item list-group-item-action">My Profile</a>
+            <a href="/logout" class="list-group-item list-group-item-action">Logout</a>
+        </div> 
+    </div>
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 border-right">
+                        <h4>Posts</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="/post"><button type="button" class="btn btn-sm btn-primary">Add New</button></a>
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+            <div class="row">
+                {{#if posts.length}}
+                        <table class="table table-hover">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Comments</th>
+                                    <th>Date</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each posts as |post| }}
+                                    <tr>  
+                                        <td><a href="/post/{{ post.id }}"><small>{{ post.title }}</small></a></td>
+                                        <td><small>{{ post.author }}</small></td>
+                                        <td><a href="/post/{{ post.id }}/comments"><small>{{ post.comments.length }}</small></a></td>
+                                        <td><small>Published {{ post.publishedAt }}</small></td>
+                                        <td>
+                                            <a href="#"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a href="#"><i class="fa fa-eye"></i></a>
+                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

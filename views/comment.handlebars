@@ -1,0 +1,55 @@
+<div class="row">&nbsp;</div>
+<div class="row">
+    <div class="col-md-3 ">
+        <div class="list-group ">
+            <a href="/" class="list-group-item list-group-item-action">Dashboard</a>
+            <a href="/post" class="list-group-item list-group-item-action active">Add New Post</a>
+            <a href="/profile" class="list-group-item list-group-item-action">My Profile</a>
+            <a href="/logout" class="list-group-item list-group-item-action">Logout</a>
+        </div> 
+    </div>
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>Comments</h4>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        {{#each post.comments as |comment| }}
+                            <article class="row">
+                                <div class="col-md-9 col-sm-9">
+                                    <div class="panel panel-default arrow left">
+                                        <div class="panel-body">
+                                            <header class="text-left">
+                                                <div class="comment-user">
+                                                  <i class="fa fa-user"></i>
+                                                    {{#if comment.name}}
+                                                        {{comment.name}}
+                                                    {{else}}
+                                                        {{comment.email}}
+                                                    {{/if}}
+                                                </div>
+                                                <time class="comment-date" datetime="{{comment.commentAddedSince}}">
+                                                    <i class="fa fa-clock-o"></i> {{comment.commentAddedSince}}
+                                                </time>
+                                            </header>
+                                            <div class="comment-post">
+                                                <p>
+                                                  {{comment.message}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

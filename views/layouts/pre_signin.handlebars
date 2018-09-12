@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>Blog Post</title>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <!-- Bootstrap validator JS and CSS -->
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
+          
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="#" crossorigin="anonymous">
+        
+        <link type="text/css" rel="stylesheet" href="../stylesheets/stylesheet.css" />
+        <script src="../javascripts/index.js"></script>
+    </head>
+
+    <body>
+        <nav class="navbar bg-primary">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Blog Post</a>
+                </div>
+                
+                {{#if user}}
+                    <div class="collapse navbar-collapse" id="main-nav-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/logout">Log Out</a></li>
+                        </ul>
+                    </div>
+                {{/if}}
+            </div>
+        </nav>
+
+        <main class="container">
+            <div class="row">
+                <div class="column col-xs-12">
+                    {{#each getMessages as |messages key| }} {{#each messages as |message| }}
+                        <script>
+                            $(function() {
+                                if('{{key}}' == 'success')
+                                        $('#alert_success').addClass('alert-success');
+                                else if('{{key}}' == 'error')
+                                    $('#alert_error').addClass('alert-danger');
+                            });
+                        </script>
+                        <div id="alert_{{key}}" class="alert alert-dismissible text-center" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button> {{ message }}
+                        </div>
+                    {{/each }} {{/each }}
+                </div>
+            </div>
+
+            {{{ body }}}
+
+        </main>
+        <footer>
+            <div class="footer-copyright text-center py-3">
+                <hr>
+                <p>&copy; Ashis Raj | <a href="">Privacy Policy</a> | <a href="">Terms of Use</a></p>
+            </div>
+        </footer>
+    </body>
+</html>
