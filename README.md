@@ -21,13 +21,12 @@ This is my 1st Node.js application. It has following functionalities.
 3. Use the standard node app installation process to use the application (`npm install`).
     - This should install all the dependent node-modules from `package.json`.
     
-## Email Settings
+## Email Setting
 The application sends mail for `Successful Registration`, `Forgot Password` and `Successful Reset Password` from `gmail only account`.
-**Note** You have to edit your gmail acoount's setting in order to send mail from less secure application. [See this](https://support.google.com/accounts/answer/6010255?hl=en) for more details. 
-
 1. Edit `config\keys.js`.
 2. Change `smtpConfig=>auth` with your gmail account email id and password.
 3. Change `from:` with your gmail account email id in `regMailOptions,forgotMailOptions,resetMailOptions`.
+**Note** You have to edit your gmail acoount's setting in order to send mail from less secure application. [See this](https://support.google.com/accounts/answer/6010255?hl=en) for more details. To disbale email, edit config/keys.js and set `disableEmailSending = "no"`.
 
 ## Start
 1. Usual Mode start (code changes do not reflect on the fly) `node app.js`
