@@ -20,6 +20,8 @@ This is my 1st Node.js application. It has following functionalities.
 6. Passport.js (Authentication)
 7. Passport-local.js (Authentication)
 8. Handlebars.js (Template Engine)
+9. Bootstrap (Frontend, UI)
+10. Bootstrap validator (Form validation)
 
 ## Prerequisites
 1. Insatll Node.js [See this](https://www.guru99.com/download-install-node-js.html) for installation steps.
