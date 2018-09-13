@@ -49,8 +49,10 @@ const passwordExpirationTimeInMills = (60 * 60 * 1000); // 1 hour
 
 const cookieMaxAge = (10 * 60 * 1000)	// 10 minutes
 
+const disableEmailSending = "yes";
+
 module.exports = {
     mongoURI, smtpConfig, regMailOptions, forgotMailOptions,
     resetMailOptions, passwordExpirationTimeInMills, cookieMaxAge,
-    addKeyValue
+    disableEmailSending, addKeyValue
 }

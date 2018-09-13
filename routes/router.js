@@ -93,12 +93,18 @@ function authenticate(passport) {
             function(token, user, done) {
                 let mailOptions = keys.addKeyValue(keys.forgotMailOptions, 'to', user.email)
                 let replaceHostAndToken = mailOptions['text'].replace('<host>', req.headers.host).replace('<token>', token);
-                mailOptions['text'] = replaceHostAndToken
-                
-                mailer.sendMail(mailOptions, function(err, info) {
-                    req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
-                    done(err, info);
-                });
+                let disableMailSending = keys.disableMailSending;
+
+                if(!disableMailSending == "yes") {
+                    mailOptions['text'] = replaceHostAndToken
+                    mailer.sendMail(mailOptions, function(err, info) {
+                        req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+                        done(err, info);
+                    });
+                }
+                else {
+                    console.warn(`Email sending is disabled, copy the link below into your browser to reset the password - ${replaceHostAndToken}`);
+                }
             }
         ],
         function(err, info) {
@@ -143,11 +149,18 @@ function authenticate(passport) {
             function(user, done) {
                 let mailOptions = keys.addKeyValue(keys.resetMailOptions, 'to', user.email)
                 replaceEmail = mailOptions['text'].replace('<email>', user.email);
-                mailOptions['text'] = replaceEmail
-                mailer.sendMail(mailOptions, function(err, info) {
-                    req.flash('success', 'Success! Your password has been changed.');
-                    done(err, info);
-                });
+                let disableMailSending = keys.disableMailSending;
+                
+                if(!disableMailSending == "yes") {
+                    mailOptions['text'] = replaceEmail
+                    mailer.sendMail(mailOptions, function(err, info) {
+                        req.flash('success', 'Success! Your password has been changed.');
+                        done(err, info);
+                    });
+                }
+                else {
+                    console.warn("Email sending is disabled, Success! Your password has been changed.");
+                }
             }
         ],
         function(err, info) {
@@ -166,10 +179,17 @@ function authenticate(passport) {
         User.create(req.body)
         .then(user => {
             let regMailOptions = keys.addKeyValue(keys.regMailOptions, 'to', user.email)
-            mailer.sendMail(regMailOptions, function(err, info) {
-                if (err) console.log(err);
-            });
 
+            let disableMailSending = keys.disableMailSending;
+                
+            if(!disableMailSending == "yes") {
+                mailer.sendMail(regMailOptions, function(err, info) {
+                    if (err) console.log(err);
+                });
+            }
+            else {
+                console.warn('Email sending is disbaled!');
+            }
             req.login(user, err => {
                 if (err) { next(err); }
                 else {
@@ -315,11 +335,11 @@ function authenticate(passport) {
         });
     });
 
-    /* router.use((err, req, res) => {
+    router.use((err, req, res) => {
         console.error(err.stack);
         res.status(500).end(err.stack);
     });
- */
+ 
     return router;
 }
 
