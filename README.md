@@ -11,6 +11,16 @@ This is my 1st Node.js application. It has following functionalities.
 8. [Add Comment on a Blog/Post](public/images/screenshots/post_details.JPG)
 9. [View Comment on a Blog/Post](public/images/screenshots/comment.JPG)
 
+## Technology
+1. Node.js (Server side JS)
+2. Express.js (Web Application Framework)
+3. Mongoose.js (ODM - Object Document Mapper)
+4. MongoDB (Ducument Database)
+5. NodeMailer.js (Email)
+6. Passport.js (Authentication)
+7. Passport-local.js (Authentication)
+8. Handlebars.js (Template Engine)
+
 ## Prerequisites
 1. Insatll Node.js [See this](https://www.guru99.com/download-install-node-js.html) for installation steps.
 2. Install MongoDB [See this](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/) for installation steps.
