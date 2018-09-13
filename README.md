@@ -26,7 +26,9 @@ The application sends mail for `Successful Registration`, `Forgot Password` and 
 1. Edit `config\keys.js`.
 2. Change `smtpConfig=>auth` with your gmail account email id and password.
 3. Change `from:` with your gmail account email id in `regMailOptions,forgotMailOptions,resetMailOptions`.
-**Note** You have to edit your gmail acoount's setting in order to send mail from less secure application. [See this](https://support.google.com/accounts/answer/6010255?hl=en) for more details. To disbale email, edit config/keys.js and set `disableEmailSending = "no"`.
+4. To disbale email, edit config/keys.js and set `disableEmailSending = "no"`.
+**Note** You have to edit your gmail acoount's setting in order to send mail from less secure application. [See this](https://support.google.com/accounts/answer/6010255?hl=en) for more details.
+
 
 ## Start
 1. Usual Mode start (code changes do not reflect on the fly) `node app.js`
