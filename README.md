@@ -15,13 +15,13 @@ This is my 1st Node.js application. It has following functionalities.
 1. Node.js (Server side JS)
 2. Express.js (Web Application Framework)
 3. Mongoose.js (ODM - Object Document Mapper)
-4. MongoDB (Ducument Database)
+4. MongoDB (Document Database)
 5. NodeMailer.js (Email)
-6. Passport.js (Authentication)
-7. Passport-local.js (Authentication)
+6. Passport.js (Authentication and Session Management)
+7. Passport-local.js (Local Authentication)
 8. Handlebars.js (Template Engine)
-9. Bootstrap (Frontend, UI)
-10. Bootstrap validator (Form validation)
+9. Bootstrap.js (Frontend, UI)
+10. Bootstrap-validator.js (HTML Form validation)
 
 ## Prerequisites
 1. Insatll Node.js [See this](https://www.guru99.com/download-install-node-js.html) for installation steps.
