@@ -335,10 +335,10 @@ function authenticate(passport) {
         });
     });
 
-    router.use((err, req, res) => {
+    /*router.use((err, req, res) => {
         console.error(err.stack);
         res.status(500).end(err.stack);
-    });
+    });*/
  
     return router;
 }
