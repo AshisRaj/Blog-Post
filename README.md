@@ -1,6 +1,6 @@
 # Blog-Post
 
-This is my 1st Node.js application. It has following functionalities (find sceenshot by clicking each link).
+This is my 1st Node.js application. It has following functionalities `(find sceenshot by clicking each link)`.
 1. [User Registration](public/images/screenshots/register.JPG) (email support)
 2. [Login/Logout](public/images/screenshots/login.JPG)
 3. [Forgot Password](public/images/screenshots/forgot.JPG) (email support) 
