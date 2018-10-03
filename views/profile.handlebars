@@ -4,7 +4,7 @@
         <div class="list-group">
             <a href="/" class="list-group-item list-group-item-action">Dashboard</a>
             <a href="/post" class="list-group-item list-group-item-action">Add New Post</a>
-            <a href="/profile" class="list-group-item list-group-item-action active">My Profile</a>
+            <a id="profile" href="/profile" class="list-group-item list-group-item-action active">My Profile</a>
             <a href="/logout" class="list-group-item list-group-item-action">Logout</a>
         </div> 
 		</div>
@@ -13,7 +13,7 @@
 		        <div class="card-body">
 		            <div class="row">
 		                <div class="col-md-12">
-		                    <h4>Your Profile</h4>
+		                    <h4 id="profile_heading">Your Profile</h4>
 		                    <hr>
 		                </div>
 		            </div>
@@ -55,15 +55,15 @@
                                 <div class="col-9">
                                     <div id="radioBtn" class="btn-group">
                                         {{#if user.hasGenderMale}}
-                                          <a class="btn btn-primary btn-sm" data-toggle="gender" data-title="M">Male</a>
+                                          <a id="active_Male" class="btn btn-primary btn-sm" data-toggle="gender" data-title="M">Male</a>
                                         {{else}}
-                                          <a class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="M">Male</a> 
+                                          <a id="notActive_Male" class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="M">Male</a> 
                                         {{/if}}
 
                                         {{#if user.hasGenderFemale}}
-                                          <a class="btn btn-primary btn-sm" data-toggle="gender" data-title="F">Female</a>
+                                          <a id="active_Female" class="btn btn-primary btn-sm" data-toggle="gender" data-title="F">Female</a>
                                         {{else}}
-                                          <a class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="F">Female</a>
+                                          <a id="notActive_Female" class="btn btn-primary btn-sm notActive" data-toggle="gender" data-title="F">Female</a>
                                         {{/if}}
                                     </div>
                                     <input type="hidden" name="gender" id="gender" value="{{user.profile.gender}}">
@@ -83,7 +83,7 @@
                             </div>
                               <div class="form-group row">
                                 <div class="col-md-12 text-center">
-                                  <button name="submit" type="submit" class="btn btn-primary">Update profile</button>
+                                  <button id="update_profile"name="submit" type="submit" class="btn btn-primary">Update profile</button>
                                 </div>
                               </div>
                             </form>

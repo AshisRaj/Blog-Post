@@ -10,6 +10,24 @@ $(function() {
     })
 });
 
+$(function() {
+    $('#confirm').on('focus', function() {
+        $('#confirm_suggestion').show('slow');
+    })
+
+    $('#password').on('focus', function() {
+        $('#password_suggestion').show('slow');
+    })
+
+    $('#confirm').on('blur', function() {
+        $('#confirm_suggestion').hide('slow');
+    })
+
+    $('#password').on('blur', function() {
+        $('#password_suggestion').hide('slow');
+    })
+});
+
 $(document).ready(function() {
     $('#register-form').bootstrapValidator({
         feedbackIcons: {
@@ -21,7 +39,7 @@ $(document).ready(function() {
             username: {
                 validators: {
                     notEmpty: {
-                        message: 'The username is required'
+                        message: 'The username is required and cannot be empty'
                     }
                 }
             },
@@ -40,9 +58,9 @@ $(document).ready(function() {
                     notEmpty: {
                         message: 'The password is required and cannot be empty'
                     },
-                    identical: {
-                        field: 'confirm',
-                        message: 'The password and its confirm are not the same'
+                    regexp: {
+                        regexp: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$@!%?&]).{6,12}$/,
+                        message: 'Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters'
                     }
                 }
             },
@@ -50,6 +68,10 @@ $(document).ready(function() {
                 validators: {
                     notEmpty: {
                         message: 'The confirm password is required and cannot be empty'
+                    },
+                    regexp: {
+                        regexp: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$@!%?&]).{6,12}$/,
+                        message: 'Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters'
                     },
                     identical: {
                         field: 'password',
@@ -70,7 +92,7 @@ $(document).ready(function() {
             username: {
                 validators: {
                     notEmpty: {
-                        message: 'The username is required'
+                        message: 'The username is required and cannot be empty'
                     }
                 }
             },
