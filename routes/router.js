@@ -7,6 +7,7 @@ const crypto = require("crypto");
 
 const User = require(path.join(__dirname, '../models/user'));
 const Post = require(path.join(__dirname, '../models/post'));
+const Comment = require(path.join(__dirname, '../models/comment'));
 
 const keys = require(path.join(__dirname, '../config/keys'));
 const mailer = require(path.join(__dirname, '../mailer/nodemailer'));
@@ -93,22 +94,26 @@ function authenticate(passport) {
             function(token, user, done) {
                 let mailOptions = keys.addKeyValue(keys.forgotMailOptions, 'to', user.email)
                 let replaceHostAndToken = mailOptions['text'].replace('<host>', req.headers.host).replace('<token>', token);
-                let disableMailSending = keys.disableMailSending;
-
-                if(!disableMailSending == "yes") {
+                let disableEmailSending = keys.disableEmailSending;
+                
+                if(disableEmailSending && disableEmailSending == "no") {
                     mailOptions['text'] = replaceHostAndToken
                     mailer.sendMail(mailOptions, function(err, info) {
-                        req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+                        if(info)
+                            req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
                         done(err, info);
                     });
                 }
                 else {
-                    console.warn(`Email sending is disabled, copy the link below into your browser to reset the password - ${replaceHostAndToken}`);
+                    done(`Email sending is disabled`, null);
                 }
             }
         ],
         function(err, info) {
-            if (err) return next(err);
+            if (err) 
+                req.flash('error', "Soomething wrong happened, probably Email sending is disabled.");
+            else 
+                console.log(info);    
             res.redirect('/forgot');
         });
     });
@@ -311,20 +316,22 @@ function authenticate(passport) {
     });
 
     // Post Details - Comment Handler 
-    router.post("/post/comments", (req, res, next) => {
+    router.post("/post/comments", loggedInOnly, (req, res, next) => {
         Post.findById(req.body.postId)
         .exec()
         .then(post => {
-            comment = post.comments.create({ name : req.body.name,
+            comment = Comment.create({ name : req.body.name,
                 email: req.body.email,
                 message: req.body.message,
             })
-            post.comments.push(comment);
-            post.save()
-            .then(post => { 
-                req.flash('success', 'Comment added to the Post successfully!');
-                res.redirect("/");
-            });
+            .then(comment => {
+                post.comments.push(comment);
+                post.save()
+                .then(post => { 
+                    req.flash('success', 'Comment added to the Post successfully!');
+                    res.redirect("/");
+                });
+            })
         })
         .catch(err => {
             console.error(err.stack);

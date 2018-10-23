@@ -4,13 +4,7 @@ const Schema = mongoose.Schema;
 const dateFormat = require('dateformat');
 const moment = require('moment')
 
-// create a schema
-const CommentSchema = new Schema({
-    name: { type: String, trim: true, index: true },
-    email: { type: String, trim: true, required: true },
-    message: { type: String, trim: true, required: true },
-    createdAt: { type: Date, default: Date.now }
-});
+var CommentSchema = require('../models/comment').schema;
 
 // create a schema
 var PostSchema = new Schema({
@@ -18,7 +12,7 @@ var PostSchema = new Schema({
     description: { type: String },
     body: { type: String, required: true, exclude: true, allowOnUpdate: false },
     author: { type: String, default: 'Anonymus' },
-    comments: [CommentSchema]
+    comments: [{ type: CommentSchema, ref: 'Comment'}]
 }, {timestamps: true});
 
 PostSchema.virtual("publishedAt").get(function() {
@@ -26,10 +20,6 @@ PostSchema.virtual("publishedAt").get(function() {
 });
   
 PostSchema.virtual("publishedSince").get(function() {
-    return moment(this.createdAt).fromNow()
-});
-
-CommentSchema.virtual("commentAddedSince").get(function() {
     return moment(this.createdAt).fromNow()
 });
 
