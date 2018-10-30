@@ -10,6 +10,7 @@ This is my 1st Node.js application. It has following functionalities `(find scee
 7. [View Blog/Post](public/images/screenshots/dashboard.JPG)
 8. [Add Comment on a Blog/Post](public/images/screenshots/post_details.JPG)
 9. [View Comment on a Blog/Post](public/images/screenshots/comment.JPG)
+10. Account Locking (to prevent brute-force attacks by enforcing a maximum number of failed login attempts)
 
 ## Technology
 1. Node.js (Server side JS)
