@@ -53,14 +53,14 @@ const reasons = UserSchema.statics.failedLogin = {
 /**
  Schema methods
 */
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
+UserSchema.method('comparePassword', function(candidatePassword, cb) {
     bcrypt.compare(candidatePassword, this.passwordHash, function(err, isMatch) {
         if (err) return cb(err);
         cb(null, isMatch);
     });
-};
+});
 
-UserSchema.methods.incLoginAttempts = function(cb) {
+UserSchema.method('incLoginAttempts', function(cb) {
   // if we have a previous lock that has expired, restart at 1
   if (this.lockUntil && this.lockUntil < Date.now()) {
       return this.update({
@@ -75,12 +75,12 @@ UserSchema.methods.incLoginAttempts = function(cb) {
       updates.$set = { lockUntil: Date.now() + LOCK_TIME };
   }
   return this.update(updates, cb);
-};
+});
 
 /**
  Static methods
 */
-UserSchema.statics.getAuthenticated = function(username, password, cb) {
+UserSchema.static('getAuthenticated', function(username, password, cb) {
   this.findOne({ username: username }, function(err, user) {
       if (err) return cb(err);
 
@@ -124,15 +124,7 @@ UserSchema.statics.getAuthenticated = function(username, password, cb) {
           });
       });
   });
-};
-
-/*UserSchema.methods.comparePassword = function(password) {
-  bcrypt.compare(password, this.passwordHash, function(err, isMatched) {
-    if (err) console.log(err);
-    else
-      return isMatched;
-  });
-};*/
+});
 
 /**
  Virtual methods
