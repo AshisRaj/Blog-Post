@@ -85,7 +85,35 @@ passport.deserializeUser(function(userId, done) {
 
 // Passport Local
 const local = new LocalStrategy((username, password, done) => {
-    User.findOne({ username })
+
+    User.getAuthenticated(username, password, function(err, user, reason) {
+        if (err) done(err);
+
+        // login was successful if we have a user
+        if (user) {
+            // handle login success
+            console.log('login success');
+            done(null, user);
+        }
+
+        // otherwise we can determine why we failed
+        var reasons = User.failedLogin;
+        switch (reason) {
+            case reasons.NOT_FOUND:
+            case reasons.PASSWORD_INCORRECT:
+                // note: these cases are usually treated the same - don't tell
+                // the user *why* the login failed, only that it did
+                done(null, false, { message: "Invalid username/password, Try again!" });
+                break;
+            case reasons.MAX_ATTEMPTS:
+                // send email or otherwise notify user that account is
+                // temporarily locked
+                done(null, false, { message: "Your account is locked out, Try later!" });
+                break;
+        }
+    });
+
+    /*User.findOne({ username })
     .then(user => {
         if (!user || !user.validPassword(password)) {
             done(null, false, { message: "Invalid username/password, Try again!" });
@@ -93,8 +121,9 @@ const local = new LocalStrategy((username, password, done) => {
             done(null, user);
         }
     })
-    .catch(e => done(e));
+    .catch(e => done(e));*/
 });
+
 passport.use("local", local);
 
 app.use((req, res, next) => {
