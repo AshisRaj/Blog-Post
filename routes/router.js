@@ -61,7 +61,6 @@ function authenticate(passport) {
         res.redirect("/login");
     });
 
-
     // Forgot password View
     router.get("/forgot", loggedOutOnly, (req, res) => {
         res.render("forgot", {layout: 'pre_signin'});
@@ -156,7 +155,7 @@ function authenticate(passport) {
                 replaceEmail = mailOptions['text'].replace('<email>', user.email);
                 let disableMailSending = keys.disableMailSending;
                 
-                if(!disableMailSending == "yes") {
+                if(disableMailSending && disableMailSending == "no") {
                     mailOptions['text'] = replaceEmail
                     mailer.sendMail(mailOptions, function(err, info) {
                         req.flash('success', 'Success! Your password has been changed.');
@@ -187,7 +186,7 @@ function authenticate(passport) {
 
             let disableMailSending = keys.disableMailSending;
                 
-            if(!disableMailSending == "yes") {
+            if(disableMailSending && disableMailSending == "no") {
                 mailer.sendMail(regMailOptions, function(err, info) {
                     if (err) console.log(err);
                 });
