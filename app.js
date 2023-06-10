@@ -65,7 +65,7 @@ app.use((req, res, next) => {
     else {
         const mongoUrl = process.env.MONGO_URL || keys.mongoURI;
         mongoose
-        .connect(mongoUrl, { useNewUrlParser: true })
+        .connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
         .then(() => next())
         .catch(err => console.error(`Mongoose Error: ${err.stack}`));
     }
