@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "async": "^2.6.1",
-    "bcrypt": "^1.0.3",
+    "bcrypt": "5.1.0",
     "bluebird": "^3.5.0",
     "body-parser": "^1.18.3",
     "crypto": "^1.0.1",
@@ -24,6 +24,7 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
     "handlebars-helpers": "^0.10.0",
+    "handlebars": "4.5.3",
     "moment": "^2.22.2",
     "mongoose": "^5.2.9",
     "mongoose-unique-validator": "^2.0.1",
