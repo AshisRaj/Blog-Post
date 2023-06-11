@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "testwd": "mocha --timeout 10000 ./tests/selenium-webdriver/tests.js"
   },
   "dependencies": {
     "async": "^2.6.1",
@@ -25,6 +25,7 @@
     "express-session": "^1.15.6",
     "handlebars-helpers": "^0.10.0",
     "handlebars": "4.5.3",
+    "mocha": "10.2.0",
     "moment": "^2.22.2",
     "mongoose": "^5.2.9",
     "mongoose-unique-validator": "^2.0.1",
@@ -32,6 +33,7 @@
     "nodemailer": "^4.6.8",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "selenium-webdriver": "^4.9.2",
     "serve-favicon": "^2.5.0",
     "static-favicon": "^2.0.0-alpha"
   },
