@@ -49,3 +49,4 @@ The application sends mail for `Successful Registration`, `Forgot Password` and 
 3. Open the application in any browser with http://localhost:8080/
 
 Some changes for second commit
+GBerestovskyi
