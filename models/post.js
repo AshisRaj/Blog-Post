@@ -29,3 +29,6 @@ const Post = mongoose.model('Post', PostSchema);
 
 // make this available to our users in our Node applications
 module.exports = Post;
+
+
+// some comments with changes for #2 lab work. 
