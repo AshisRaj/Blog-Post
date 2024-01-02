@@ -24,7 +24,11 @@ const User = require(path.join(__dirname, 'models/user')),
 // Templates
 const hbs = expressHandlebars.create({
     extname: 'handlebars',
-    defaultLayout: "post_signin"
+    defaultLayout: "post_signin",
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true
+    }    
 });
 
 // View Engine

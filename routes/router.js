@@ -55,10 +55,12 @@ function authenticate(passport) {
     );
 
     // Logout Handler
-    router.all("/logout", function(req, res) {
-        req.logout();
-        req.session.destroy();
-        res.redirect("/login");
+    router.get("/logout", function(req, res) {
+        req.logout(function(err) {
+            if (err) { return next(err); }
+            req.session.destroy();
+            res.redirect("/login");
+        });        
     });
 
     // Forgot password View
