@@ -46,5 +46,5 @@ The application sends mail for `Successful Registration`, `Forgot Password` and 
 ## Start
 1. Usual Mode start (code changes do not reflect on the fly) `node app.js`
 2. Development Mode Start (code changes reflect on the fly) `SET DEBUG=Blog-Post:* & npm run devstart`
-3. Open the application in any browser with http://localhost:8080/
+3. Open the application in any browser with http://localhost:9090/
 

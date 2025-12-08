@@ -1,4 +1,3 @@
-
 const express = require("express"),
     logger = require('morgan'),
     expressHandlebars = require("express-handlebars"),
@@ -69,7 +68,7 @@ app.use((req, res, next) => {
     else {
         const mongoUrl = process.env.MONGO_URL || keys.mongoURI;
         mongoose
-        .connect(mongoUrl, { useNewUrlParser: true })
+        .connect(mongoUrl) // Removed useNewUrlParser as it is now the default behavior
         .then(() => next())
         .catch(err => console.error(`Mongoose Error: ${err.stack}`));
     }
@@ -84,7 +83,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(userId, done) {
-    User.findById(userId, (err, user) => done(err, user));
+    User.findById(userId).then(user => done(null, user)).catch(err => done(err));
 });
 
 // Passport Local
@@ -139,7 +138,7 @@ app.use((req, res, next) => {
 app.use("/", require("./routes/router")(passport));
 
 // Start Server
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 9090;
 
 // Initialize a new socket.io object. It is bound to 
 // the express app, which allows them to coexist.

@@ -1,4 +1,3 @@
-
 const express = require("express");
 const router = express.Router();
 const path = require('path');
@@ -32,12 +31,9 @@ const loggedOutOnly = (req, res, next) => {
 function authenticate(passport) {
     // Main/Home Page
     router.get("/", loggedInOnly, (req, res) => {
-        Post.find({}, function (err, posts) {
-            if(err) { next(err); }
-            else {
-                    res.render("index", { posts: posts });
-            }
-        });
+        Post.find({}).then(posts => {
+            res.render("index", { posts: posts });
+        }).catch(err => next(err));
     });
 
     // Login View
@@ -289,14 +285,11 @@ function authenticate(passport) {
 
     // Post Details View
     router.get('/post/:id', loggedInOnly, function(req, res) {
-        Post.findById(req.params.id, function (err, post) {
-            if(err) { 
-                req.flash('error', 'Something wrong happened with Post details.');
-                return res.redirect('/');
-                }
-            else {
-                res.render("post_detail", { layout: 'pre_signin', post: post });
-            }
+        Post.findById(req.params.id).then(post => {
+            res.render("post_detail", { post });
+        }).catch(err => {
+            req.flash('error', 'Something wrong happened with Post details.');
+            next(err);
         });
     });
 

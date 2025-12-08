@@ -81,9 +81,7 @@ UserSchema.method('incLoginAttempts', function(cb) {
  Static methods
 */
 UserSchema.static('getAuthenticated', function(username, password, cb) {
-  this.findOne({ username: username }, function(err, user) {
-      if (err) return cb(err);
-
+  this.findOne({ username: username }).then(user => {
       // make sure the user exists
       if (!user) {
           return cb(null, null, reasons.NOT_FOUND);
@@ -123,7 +121,7 @@ UserSchema.static('getAuthenticated', function(username, password, cb) {
               return cb(null, null, reasons.PASSWORD_INCORRECT);
           });
       });
-  });
+  }).catch(err => cb(err));
 });
 
 /**
