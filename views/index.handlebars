@@ -1,11 +1,8 @@
+{{! Extend the post_signin layout }}
+{{#> post_signin }}
 <div class="row">
     <div class="col-md-3">
-        <div class="list-group ">
-            <a href="/" class="list-group-item list-group-item-action active" id="dashboard">Dashboard</a>
-            <a id="add_new_post_link" href="/post" class="list-group-item list-group-item-action">Add New Post</a>
-            <a id="profile" href="/profile" class="list-group-item list-group-item-action">My Profile</a>
-            <a href="/logout" class="list-group-item list-group-item-action">Logout</a>
-        </div> 
+        {{> sidebar activeDashboard=true }}
     </div>
     <div class="col-md-9">
         <div class="card">
@@ -19,8 +16,8 @@
                     </div>
                 </div>
                 <div class="row">&nbsp;</div>
-            <div class="row">
-                {{#if posts.length}}
+                <div class="row">
+                    {{#if posts.length}}
                         <table id="post_listing" class="table table-hover">
                             <thead class="bg-light">
                                 <tr>
@@ -28,6 +25,7 @@
                                     <th>Author</th>
                                     <th>Comments</th>
                                     <th>Date</th>
+                                    <th>Views</th>
                                     <th>Edit</th>
                                 </tr>
                             </thead>
@@ -38,16 +36,22 @@
                                         <td><small>{{ post.author }}</small></td>
                                         <td><small>{{ post.comments.length }}</small></td>
                                         <td><small>Published {{ post.publishedAt }}</small></td>
+                                        <td><small>{{ post.views }}</small></td>
                                         <td>
-                                            <a href="#"><i class="fa fa-pencil-square-o"></i></a>
-                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                            <a href="/post/{{ post.id }}/edit"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a href="/post/{{ post.id }}/delete" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this post?')) { document.getElementById('delete-post-{{ post.id }}').submit(); }"><i class="fa fa-trash"></i></a>
+                                            <form id="delete-post-{{ post.id }}" action="/post/{{ post.id }}/delete" method="POST" style="display: none;"></form>
                                         </td>
                                     </tr>
                                 {{/each}}
                             </tbody>
                         </table>
-                {{/if}}
+                    {{else}}
+                        <p>No posts available.</p>
+                    {{/if}}
+                </div>
             </div>
         </div>
     </div>
 </div>
+{{/post_signin}}

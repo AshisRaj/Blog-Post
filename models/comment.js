@@ -8,7 +8,8 @@ const CommentSchema = new Schema({
     name: { type: String, trim: true, index: true },
     email: { type: String, trim: true, required: true },
     message: { type: String, trim: true, required: true },
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now },
+    deleted: { type: Boolean, default: false } // Soft delete field
 });
 
 

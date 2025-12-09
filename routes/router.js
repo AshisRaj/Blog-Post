@@ -31,7 +31,8 @@ const loggedOutOnly = (req, res, next) => {
 function authenticate(passport) {
     // Main/Home Page
     router.get("/", loggedInOnly, (req, res) => {
-        Post.find({}).then(posts => {
+        Post.find({ deleted: false })
+        .then(posts => {
             res.render("index", { posts: posts });
         }).catch(err => next(err));
     });
@@ -286,7 +287,13 @@ function authenticate(passport) {
     // Post Details View
     router.get('/post/:id', loggedInOnly, function(req, res) {
         Post.findById(req.params.id).then(post => {
-            res.render("post_detail", { post });
+            if (!post) {
+                req.flash('error', 'Post not found.');
+                return res.redirect('/');
+            }
+            post.incrementViews().then(() => {
+                res.render("post_detail", { post });
+            });
         }).catch(err => {
             req.flash('error', 'Something wrong happened with Post details.');
             next(err);
@@ -336,11 +343,121 @@ function authenticate(passport) {
         });
     });
 
-    /*router.use((err, req, res) => {
-        console.error(err.stack);
-        res.status(500).end(err.stack);
-    });*/
+    // Route to render the Edit Post view
+    router.get('/post/:id/edit', loggedInOnly, function(req, res, next) {
+        Post.findById(req.params.id)
+            .then(post => {
+                if (!post) {
+                    req.flash('error', 'Post not found.');
+                    return res.redirect('/');
+                }
+                res.render('post', { post }); // Use the same view as Add Post
+            })
+            .catch(err => {
+                console.error(err.stack);
+                req.flash('error', 'Something went wrong while fetching the post.');
+                next(err);
+            });
+    });
+
+    // Route to handle Edit Post submission
+    router.post('/post/:id/edit', loggedInOnly, function(req, res, next) {
+        const { title, content } = req.body;
+
+        Post.findByIdAndUpdate(req.params.id, { title, content }, { new: true })
+            .then(post => {
+                if (!post) {
+                    req.flash('error', 'Post not found.');
+                    return res.redirect('/');
+                }
+                req.flash('success', 'Post updated successfully!');
+                res.redirect(`/post/${post._id}`);
+            })
+            .catch(err => {
+                console.error(err.stack);
+                req.flash('error', 'Something went wrong while updating the post.');
+                next(err);
+            });
+    });
  
+    // Route to handle soft delete of a post
+    router.post('/post/:id/delete', loggedInOnly, function(req, res, next) {
+        Post.findByIdAndUpdate(req.params.id, { deleted: true }, { new: true })
+            .then(post => {
+                if (!post) {
+                    req.flash('error', 'Post not found.');
+                    return res.redirect('/');
+                }
+                // Soft delete related comments
+                Comment.updateMany({ _id: { $in: post.comments } }, { deleted: true })
+                    .then(() => {
+                        req.flash('success', 'Post and its comments have been soft deleted.');
+                        res.redirect('/');
+                    })
+                    .catch(err => {
+                        console.error(err.stack);
+                        req.flash('error', 'Something went wrong while deleting comments.');
+                        next(err);
+                    });
+            })
+            .catch(err => {
+                console.error(err.stack);
+                req.flash('error', 'Something went wrong while deleting the post.');
+                next(err);
+            });
+    });
+
+    // Route to review soft-deleted posts and comments
+    router.get('/admin/review', loggedInOnly, function(req, res, next) {
+        if (!req.user.isAdmin) {
+            req.flash('error', 'Access denied.');
+            return res.redirect('/');
+        }
+
+        Post.find({ deleted: true })
+            .populate('comments')
+            .then(posts => {
+                res.render('admin_review', { posts });
+            })
+            .catch(err => {
+                console.error(err.stack);
+                req.flash('error', 'Something went wrong while fetching deleted posts.');
+                next(err);
+            });
+    });
+
+    // Route to enable (restore) soft-deleted posts and comments
+    router.post('/admin/enable/:id', loggedInOnly, function(req, res, next) {
+        if (!req.user.isAdmin) {
+            req.flash('error', 'Access denied.');
+            return res.redirect('/');
+        }
+
+        Post.findByIdAndUpdate(req.params.id, { deleted: false }, { new: true })
+            .then(post => {
+                if (!post) {
+                    req.flash('error', 'Post not found.');
+                    return res.redirect('/admin/review');
+                }
+                // Restore related comments
+                Comment.updateMany({ _id: { $in: post.comments } }, { deleted: false })
+                    .then(() => {
+                        req.flash('success', 'Post and its comments have been restored.');
+                        res.redirect('/admin/review');
+                    })
+                    .catch(err => {
+                        console.error(err.stack);
+                        req.flash('error', 'Something went wrong while restoring comments.');
+                        next(err);
+                    });
+            })
+            .catch(err => {
+                console.error(err.stack);
+                req.flash('error', 'Something went wrong while restoring the post.');
+                next(err);
+            });
+    });
+
     return router;
 }
 

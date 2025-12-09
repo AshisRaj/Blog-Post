@@ -12,7 +12,10 @@ var PostSchema = new Schema({
     description: { type: String },
     body: { type: String, required: true, exclude: true, allowOnUpdate: false },
     author: { type: String, default: 'Anonymus' },
-    comments: [{ type: CommentSchema, ref: 'Comment'}]
+    comments: [{ type: CommentSchema, ref: 'Comment'}],
+    deleted: { type: Boolean, default: false }, // Soft delete field
+    // Added views field to track post views
+    views: { type: Number, default: 0 },
 }, {timestamps: true});
 
 PostSchema.virtual("publishedAt").get(function() {
@@ -22,6 +25,12 @@ PostSchema.virtual("publishedAt").get(function() {
 PostSchema.virtual("publishedSince").get(function() {
     return moment(this.createdAt).fromNow()
 });
+
+// Method to increment views
+PostSchema.methods.incrementViews = function() {
+    this.views += 1;
+    return this.save();
+};
 
 // the schema is useless so far
 // we need to create a model using it

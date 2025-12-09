@@ -27,6 +27,8 @@
     </head>
 
     <body>
+        {{! Extend the base layout }}
+        {{#> base }}
         <nav class="navbar bg-primary">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -38,16 +40,9 @@
                     </button>
                     <a class="navbar-brand" href="/">Blog Post</a>
                 </div>
-                
-                {{#if user}}
-                    <div class="collapse navbar-collapse" id="main-nav-collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="/logout">Log Out</a></li>
-                        </ul>
-                    </div>
-                {{/if}}
             </div>
         </nav>
+        {{/base}}
 
         <main class="container">
             <div class="row">

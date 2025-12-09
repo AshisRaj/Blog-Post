@@ -36,7 +36,8 @@ const UserSchema = new mongoose.Schema({
         gender:  { type: String, size: 1 },
         address: { type: String, lowercase: true, trim: true, default: '' },
         website: { type: String, lowercase: true, trim: true, default: '' }
-    }
+    },
+    isAdmin: { type: Boolean, default: false } // Field to identify admin users
 },
 {timestamps: true});
 

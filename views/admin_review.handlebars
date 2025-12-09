@@ -1,0 +1,30 @@
+<h1>Admin Review</h1>
+
+{{#if posts.length}}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Comments</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each posts as |post|}}
+                <tr>
+                    <td>{{post.title}}</td>
+                    <td>{{post.author}}</td>
+                    <td>{{post.comments.length}}</td>
+                    <td>
+                        <form action="/admin/enable/{{post._id}}" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-success">Restore</button>
+                        </form>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <p>No soft-deleted posts to review.</p>
+{{/if}}

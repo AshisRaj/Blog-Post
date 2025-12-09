@@ -11,6 +11,10 @@ This is my 1st Node.js application. It has following functionalities `(find scee
 8. [Add Comment on a Blog/Post](public/images/screenshots/post_details.JPG)
 9. [View Comment on a Blog/Post](public/images/screenshots/comment.JPG)
 10. Account Locking (to prevent brute-force attacks by enforcing a maximum number of failed login attempts)
+11. **New Features**
+    - Post Views (in number)
+    - Edit and Soft Delete Blog/Post
+    - Review Soft deleted posts as Admin (Manually need to enable a user as admin into MongoDB). 
 
 ## Technology
 1. Node.js (Server side JS)

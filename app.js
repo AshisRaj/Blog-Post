@@ -27,7 +27,8 @@ const hbs = expressHandlebars.create({
     runtimeOptions: {
         allowProtoPropertiesByDefault: true,
         allowProtoMethodsByDefault: true
-    }    
+    },
+    partialsDir: path.join(__dirname, 'views/partials') // Register partials directory
 });
 
 // View Engine
